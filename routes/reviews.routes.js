@@ -17,6 +17,7 @@ reviewsRouter.get('/', async (req, res) => {
 reviewsRouter.post('/', async (req, res) => {
     try {
         const review = await new Reviews(req.body);
+        await review.save()
     
         if(!review) return res.status(404).json({ message: 'Reviews not Found!'});
         res.status(201).json(review)

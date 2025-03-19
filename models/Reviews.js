@@ -6,10 +6,15 @@ const reviewsSchema = new mongoose.Schema(
             type: mongoose.ObjectId,
             ref: 'User',
         },
+        product_name: {
+            type: mongoose.ObjectId,
+            ref: 'Product',
+        },
         comment: {
             type: String,
             required: true,
         },
+
 
     }
 );
