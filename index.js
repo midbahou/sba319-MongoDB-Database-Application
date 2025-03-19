@@ -7,6 +7,11 @@ import mongoose from 'mongoose';
 
 // Routers
 import { healthRouter } from './routes/health.js';
+import { userRouter } from './routes/user.routes.js';
+import { productRouter } from './routes/products.routes.js';
+import { reviewsRouter } from './routes/reviews.routes.js';
+
+
 
 dotenv.config();
 // console.log(process.env.MONGODB_URI);
@@ -18,7 +23,7 @@ await mongoose.connect(process.env.MONGODB_URI)
     .catch((e) => console.error(e))
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 const app = express()
 
 // view engine
@@ -33,6 +38,7 @@ app.use(morgan('dev'));
 app.use(helmet()); // add more security to your app
 app.use(cors()); // if we have another app running it will be blocked by cors
 
+
 // Routes
 app.get('/', (req, res) => {
     res.render('index')
@@ -40,6 +46,9 @@ app.get('/', (req, res) => {
 
 // API Routes 
 app.use('/api/health', healthRouter); // this is the path we want to send the request to healthRouter
+app.use('/api/user', userRouter);
+app.use('/api/products', productRouter);
+app.use('/api/reviews', reviewsRouter)
 
 // GLobal Error handler (middleware)
 app.use((err, req, res, next) => {
